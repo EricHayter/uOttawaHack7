@@ -1,5 +1,4 @@
 import os
-import time
 
 from groq import Groq
 prompt = "Check if pet is not on floor, is eating food, is excrementing or urinating, is scratching an object or doing anything it should not be doing. If so, print YES first then a summary of what the pet(s) are doing"
@@ -8,7 +7,7 @@ client = Groq(
     api_key=os.getenv('GROQ_API_KEY')
 )
 
-def call_qroq(url):
+def call_groq(url):
     completion = client.chat.completions.create(
         model="llama-3.2-90b-vision-preview",
         messages=[
@@ -36,7 +35,3 @@ def call_qroq(url):
     )
 
     print(completion.choices[0].message.content)
-
-while start:
-    time.sleep(30) 
-    call_qroq("")

@@ -21,6 +21,6 @@ def get_user(userid):
     if not devices:
         return '404'
     for device in devices:
-        info = requests.get(device)
+        info = requests.get(f'https://{device}')
         # groq_fo = call_groq(info)
-        return info.text
+        return info.text[:500]

@@ -1,10 +1,7 @@
 from groq_interact import call_groq
 from flask import Flask, abort
-<<<<<<< HEAD
 from datetime import datetime
-=======
 from flask_cors import CORS
->>>>>>> 291316e (added cors)
 from markupsafe import escape
 import requests
 import base64

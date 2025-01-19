@@ -1,4 +1,5 @@
-from flask import Flask
+from groq_interact import call_groq
+from flask import Flask, abort
 from markupsafe import escape
 import requests
 
@@ -12,6 +13,7 @@ def connect_user(userid, device_addr):
 
 @app.route("/disconnect/<userid>")
 def disconnect_user(userid):
+    global connected_users
     connected_users = [(user, device) for (user, device) in connected_users if user != userid]
     return f'User {escape(userid)} disconnected'
 
@@ -19,8 +21,6 @@ def disconnect_user(userid):
 def get_user(userid):
     devices = [device for (user, device) in connected_users if user == userid]
     if not devices:
-        return '404'
+        return abort(404)
     for device in devices:
-        info = requests.get(f'https://{device}')
-        # groq_fo = call_groq(info)
-        return info.text[:500]
+        return call_groq(f'http://{device}')

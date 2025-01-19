@@ -1,5 +1,5 @@
 from groq_interact import call_groq
-from flask import Flask, abort
+from flask import Flask, abort, jsonify
 from datetime import datetime
 from flask_cors import CORS
 from markupsafe import escape
@@ -8,7 +8,8 @@ import base64
 import json
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
+# CORS(app)
 
 connected_users = []
 
@@ -56,7 +57,8 @@ def get_user(userid):
         # is_of_interest (if it has "YES" then it will be of interest) this will be useful to 
         # let the twins know if they should include the poloroid of the picture on the website
         # or just show it as the latest live data and then toss once new stuff comes
-        return parse_text(call_groq(base64_data), base64_data)
+        return jsonify(message=parse_text(call_groq(base64_data), base64_data))
         #return call_groq(base64_data)
     
-
+if __name__ == '__main__':
+    app.run(host='127.0.0.1', port=8080)

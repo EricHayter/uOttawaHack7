@@ -25,4 +25,10 @@ def get_user(userid):
         return abort(404)
     for device in devices:
         base64_data = base64.b64encode(requests.get(f'http://{device}', stream=True).content).decode('utf-8')
+        # send base64_data in json
+        # send sentence
+        # timestamp (time during for logging)
+        # is_of_interest (if it has "YES" then it will be of interest) this will be useful to 
+        # let the twins know if they should include the poloroid of the picture on the website
+        # or just show it as the latest live data and then toss once new stuff comes
         return call_groq(base64_data)

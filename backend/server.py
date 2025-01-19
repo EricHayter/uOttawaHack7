@@ -1,4 +1,4 @@
-from groq_interact import call_groq
+from groq_interact import call_groq, call_groq_audio
 from flask import Flask, abort
 from datetime import datetime
 from markupsafe import escape
@@ -28,6 +28,22 @@ def parse_text(prompt, image):
     }
     return json.dumps(data, indent=4)
 
+# "Write YES or NO with spaces between if the following is true about the text (4 in total): the animal is happy, the animal is angry, the animal is sad, the animal is in distress. Here is the transcription: " + transcription,
+def parse_text_audio(prompt, sound):
+    words = prompt.split()
+    #print(len(words))
+    #print(words)
+    if (len(words) !=3):
+        print("ERROR")
+    data = {
+        'angry': words[0] == "YES",
+        'sad': words[1] == "YES",
+        'distress': words[2] == "YES",
+        'sound': sound,
+        'time': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    }
+    return json.dumps(data, indent=4)
+
 
 @app.route("/connect/<userid>/<device_addr>")
 def connect_user(userid, device_addr):
@@ -47,13 +63,19 @@ def get_user(userid):
         return abort(404)
     for device in devices:
         base64_data = base64.b64encode(requests.get(f'http://{device}', stream=True).content).decode('utf-8') # for image
-        # send base64_data in json
-        # send sentence
-        # timestamp (time during for logging)
-        # is_of_interest (if it has "YES" then it will be of interest) this will be useful to 
-        # let the twins know if they should include the poloroid of the picture on the website
-        # or just show it as the latest live data and then toss once new stuff comes
         return parse_text(call_groq(base64_data), base64_data)
-        #return call_groq(base64_data)
-    
 
+@app.route("/getsound/<userid>")
+def get_user_sound(userid):
+    devices = [device for (user, device) in connected_users if user == userid]
+    if not devices:
+        return abort(404)
+    for device in devices:
+        return parse_text_audio(call_groq_audio(device), device)
+    
+#print(parse_text_audio(call_groq_audio("/15-seconds-of-silence.mp3"), "/15-seconds-of-silence.mp3"))
+#print(parse_text_audio(call_groq_audio("/cat_sound.mp3"), "/cat_sound.mp3"))
+#filename2 = "/15-seconds-of-silence.mp3"
+
+#connect_user("megan", "/15-seconds-of-silence.mp3")
+#get_user_sound("megan")

@@ -35,3 +35,33 @@ def call_groq(base64_data):
     )
 
     return completion.choices[0].message.content
+
+def call_groq_audio(sound_file):
+
+    # Specify the path to the audio file
+    filename = os.path.dirname(__file__) + sound_file # Replace with your audio file!
+
+    # Open the audio file
+    with open(filename, "rb") as file:
+        # Create a transcription of the audio file
+        transcription = client.audio.transcriptions.create(
+        file=(filename, file.read()), # Required audio file
+        model="whisper-large-v3-turbo", # Required model to use for transcription
+        response_format="json",  # Optional
+        temperature=0.0
+        )
+        # Print the transcription text
+        transcription =transcription.text
+        #print(transcription)
+    
+    chat_completion = client.chat.completions.create(
+        messages=[
+            {
+                "role": "user",
+                "content": "Write YES or NO with spaces between the words if the following is true about the text (3 in total): the animal is angry, the animal is sad, the animal is in distress. Here is the transcription: " + transcription + ". If there is no transcription provided write NO NO NO",
+            }
+        ],
+        model="llama-3.3-70b-versatile",
+        temperature = 0.0,
+    )
+    return chat_completion.choices[0].message.content

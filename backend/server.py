@@ -2,6 +2,7 @@ from groq_interact import call_groq
 from flask import Flask, abort
 from markupsafe import escape
 import requests
+import base64
 
 app = Flask(__name__)
 connected_users = []
@@ -23,4 +24,5 @@ def get_user(userid):
     if not devices:
         return abort(404)
     for device in devices:
-        return call_groq(f'http://{device}')
+        base64_data = base64.b64encode(requests.get(f'http://{device}', stream=True).content).decode('utf-8')
+        return call_groq(base64_data)

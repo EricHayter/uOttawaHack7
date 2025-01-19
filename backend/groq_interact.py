@@ -27,11 +27,11 @@ def call_groq(base64_data):
                 ]
             }
         ],
-        temperature=1,
-        max_completion_tokens=1024,
-        top_p=1,
-        stream=False,
-        stop=None,
+#        temperature=1,
+#        max_completion_tokens=1024,
+#        top_p=1,
+#        stream=False,
+#        stop=None,
     )
 
-    print(completion.choices[0].message.content)
+    return completion.choices[0].message.content

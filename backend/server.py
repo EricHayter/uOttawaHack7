@@ -1,12 +1,18 @@
 from groq_interact import call_groq
 from flask import Flask, abort
+<<<<<<< HEAD
 from datetime import datetime
+=======
+from flask_cors import CORS
+>>>>>>> 291316e (added cors)
 from markupsafe import escape
 import requests
 import base64
 import json
 
 app = Flask(__name__)
+CORS(app)
+
 connected_users = []
 
 #YES, the cat is engaging in inappropriate behavior by wearing a chef's hat and attempting to cut green onions with a knife on a wooden cutting board.

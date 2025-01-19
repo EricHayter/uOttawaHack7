@@ -26,8 +26,7 @@ def parse_text(prompt, image):
         'image': image,
         'time': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     }
-    with open("data.json", "w") as json_file:
-        json.dump(data, json_file, indent=4)
+    return json.dumps(data, indent=4)
 
 
 @app.route("/connect/<userid>/<device_addr>")

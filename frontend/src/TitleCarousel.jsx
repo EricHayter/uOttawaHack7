@@ -32,7 +32,7 @@ const useTypewriter = (text, speed, pause = 1000) => {
     return { displayText, setIsDeleting };
 };
 
-export const TitleCarousel = ({ texts, speed = 100, pause = 1500 }) => {
+export const TitleCarousel = ({ texts, speed = 90, pause = 1500 }) => {
     const [index, setIndex] = useState(0);
     const { displayText, setIsDeleting } = useTypewriter(texts[index], speed, pause);
 
@@ -46,5 +46,5 @@ export const TitleCarousel = ({ texts, speed = 100, pause = 1500 }) => {
         }
     }, [displayText, texts, pause]);
 
-    return <div><h1 style={{fontSize:'50px'}}>{displayText}</h1></div>;
+    return <div><h1 style={{fontSize:'60px',fontWeight:'450'}}>{displayText}</h1></div>;
 };

@@ -7,7 +7,7 @@ client = Groq(
     api_key=os.getenv('GROQ_API_KEY')
 )
 
-def call_groq(url):
+def call_groq(base64_data):
     completion = client.chat.completions.create(
         model="llama-3.2-90b-vision-preview",
         messages=[
@@ -21,7 +21,7 @@ def call_groq(url):
                     {
                         "type": "image_url",
                         "image_url": {
-                            "url": url
+                            "url": f"data:image/jpeg;base64,{base64_data}",
                         }
                     }
                 ]

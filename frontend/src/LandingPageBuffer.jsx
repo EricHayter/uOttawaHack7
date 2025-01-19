@@ -14,7 +14,7 @@ export const StyledHeader = styled.h1`
 export const LandingPageBuffer=()=> {
     return(
     <SpinnerContainer>
-      <WordCarousel values={["Looking for Bobic!", "Who's home?"]}/>
+      <WordCarousel values={["Looking for Trouble!", "Who's home?"]}/>
       <Spinner size="large" accessibilityLabel="Spinner example" />
     </SpinnerContainer>);
   }

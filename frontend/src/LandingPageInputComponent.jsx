@@ -55,7 +55,7 @@ const GetUserUrl = ({url, setUrl, validateUrl}) => {
     return (
         <div>
             <TitleCarousel 
-                texts={["is that Bobic? 🐕", "What's happening at home? 🏠", "Meow?! 😺"]} 
+                texts={["Who's there? 🐕", "What's happening at home? 🏠", "Meow?! 😺"]} 
                 speed={150} 
                 pause={2000}
             />

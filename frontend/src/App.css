@@ -1,42 +1,100 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+import React from 'react';
+import './App.css';
+import { Icon } from '@shopify/polaris';
+import { AlertTriangleIcon } from '@shopify/polaris-icons';
+import styled from 'styled-components';
+
+// Define styled components
+const StyledDiv = styled.div`
+  display: flex;
+  flex-direction: column; /* Align items in a column */
+  align-items: center; /* Center items horizontally */
+  text-align: center; /* Center-align text */
+`;
+
+const TitleContainer = styled.div`
+  display: flex;
+  flex-direction: row; /* Keep title and icon in the same row */
+  align-items: center;
+  gap: 10px; /* Add space between the title and the icon */
+`;
+
+const GridContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  gap: 20px; /* Space between grid items */
+  justify-items: center; /* Center items horizontally */
+  width: 100%; /* Ensure the grid takes full width */
+  max-width: 800px; /* Optional: Limit the maximum width of the grid */
+`;
+
+const PhotoCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background: #f9f9f9;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+`;
+
+const Placeholder = styled.div`
+  width: 100px;
+  height: 100px;
+  background: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #aaa;
+  font-size: 0.9rem;
+  border-radius: 4px;
+`;
+
+function alert() {
+  return (
+    <div style={{ width: '80px' }}>
+      <Icon source={AlertTriangleIcon} tone="base" />
+    </div>
+  );
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+function App() {
+  const photos = [
+    { id: 1, description: 'Hazard detected' },
+    { id: 2, description: 'Motion detected' },
+    { id: 3, description: 'Suspicious activity' },
+    { id: 4, description: 'Hazard detected' },
+    { id: 5, description: 'Hazard detected' },
+    { id: 6, description: 'Suspicious activity' },
+    { id: 7, description: 'Motion detected' },
+    { id: 8, description: 'Hazard detected' },
+    { id: 9, description: 'Suspicious activity' },
+    { id: 10, description: 'Hazard detected' },
+    { id: 11, description: 'Motion detected' },
+    { id: 12, description: 'Suspicious activity' },
+  ];
+
+  return (
+    <StyledDiv>
+      <TitleContainer>
+        <h1>Images of Interests</h1>
+        {alert()}
+      </TitleContainer>
+      <h2>Images that triggered a notification</h2>
+      <GridContainer>
+        {photos.map((photo) => (
+          <PhotoCard key={photo.id}>
+            <Placeholder>
+              <p>Photo</p>
+            </Placeholder>
+            <p>{photo.description}</p>
+          </PhotoCard>
+        ))}
+      </GridContainer>
+    </StyledDiv>
+  );
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
+export default App;

@@ -3,7 +3,7 @@ import cv2
 
 app = Flask(__name__)
 
-VIDEO_NAME = 'video.mp4'
+VIDEO_NAME = 'video2.mp4'
 IMAGE_NAME = 'image.jpg'
 
 vidcap = cv2.VideoCapture(VIDEO_NAME)

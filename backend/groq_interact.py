@@ -1,7 +1,7 @@
 import os
 
 from groq import Groq
-prompt = "Check if pet is not on floor, is eating food, is excrementing or urinating, is scratching an object or doing anything it should not be doing. If so, print YES first then a summary of what the pet(s) are doing"
+prompt = "Write YES or NO with spaces between if the following is true about the image: the animal is not on the floor, the animal is eating food, the animal is excrementing or urinating, the animal is scratching an object, the animal is doing something else it should not be, the animal is demonstrating inappropriate behaviour"
 start = False
 client = Groq(
     api_key=os.getenv('GROQ_API_KEY')

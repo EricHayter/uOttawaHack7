@@ -2,4 +2,3 @@ groq
 flask-cors
 Flask
 requests
-json

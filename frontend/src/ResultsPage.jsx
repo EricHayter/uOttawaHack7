@@ -49,30 +49,33 @@ const VideoContainer = styled.div`
 export const ResultsPage = ({ url }) => {
     const [suspicious, setSuspicious] = React.useState(false);
 
+    const Results =()=>{
+        return (
+            <StyledContainer>
+            <VideoContainer>
+                <StyledTitle>Located Video!</StyledTitle>
+                <StyledText>
+                    {`The video found at ${url} is shown below! Use the buttons to navigate more options.`}
+                </StyledText>
+            </VideoContainer>
+            <video controls width="600">
+                <source src={cat} type="video/mp4" />
+                Your browser does not support the video tag.
+            </video>
+            <ButtonContainer>
+                <StyledOption1 onClick={() => setSuspicious(true)}>
+                    Look for suspicious activities 📢
+                </StyledOption1>
+                <StyledOption2>Investigate a new video 🔎</StyledOption2>
+            </ButtonContainer>
+        </StyledContainer>
+        )
+    }
+
     return (
         <div>
-            {suspicious ? (
-                <Interests />
-            ) : (
-                <StyledContainer>
-                    <VideoContainer>
-                        <StyledTitle>Located Video!</StyledTitle>
-                        <StyledText>
-                            {`The video found at ${url} is shown below! Use the buttons to navigate more options.`}
-                        </StyledText>
-                    </VideoContainer>
-                    <video controls width="600">
-                        <source src={cat} type="video/mp4" />
-                        Your browser does not support the video tag.
-                    </video>
-                    <ButtonContainer>
-                        <StyledOption1 onClick={() => setSuspicious(true)}>
-                            Look for suspicious activities 📢
-                        </StyledOption1>
-                        <StyledOption2>Investigate a new video 🔎</StyledOption2>
-                    </ButtonContainer>
-                </StyledContainer>
-            )}
+            {suspicious && <Interests /> }
+            {!suspicious && <Results/>}
         </div>
     );
 };
